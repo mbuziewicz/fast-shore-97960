@@ -78,14 +78,25 @@ router.get('/shop/shoes', function(req, res, next) {
     for (var i = 0; i < docs.length; i += chunkSize){
       productChunks.push(docs.slice(i, i + chunkSize));
     }
-    console.log("docs:" + docs);
-  res.render('shop/shoes', { title: 'Shopping Cart' });
-});
+    //console.log("docs:" + docs);
+    res.render('shop/shoes', { title: 'Shopping Cart', products: productChunks });
+  });
 });
 
 /* GET jerseys page. */
 router.get('/shop/jerseys', function(req, res, next) {
-  res.render('shop/jerseys', { title: 'Shopping Cart' });
+  Product.find({type:'jerseys'}, function(err,docs){
+    if (err){
+      console.log(err);
+    }
+    var productChunks = [];
+    var chunkSize = 3;
+    for (var i = 0; i < docs.length; i += chunkSize){
+      productChunks.push(docs.slice(i, i + chunkSize));
+    }
+    //console.log("docs:" + docs);
+    res.render('shop/jerseys', { title: 'Shopping Cart', products: productChunks });
+  });
 });
 
 /*
@@ -119,8 +130,6 @@ router.get('/add-to-cart/:id', function (req, res) {
 router.get('/reduce/:id', function(req, res, next){
   var productId = req.params.id;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
-
-  
 
   cart.reduceByOne(productId);
   req.session.cart = cart;
@@ -158,4 +167,4 @@ function isLoggedIn(req, res, next) {
   }
   req.session.oldUrl = req.url;
   res.redirect('/user/signin');
-}
+};
