@@ -26,10 +26,10 @@ router.post('/', isLoggedIn, function(req, res, next) {
   }
 
   var cart = new Cart(req.session.cart);
-  req.checkBody('First Name', 'Invalid Name. Must be atleast 2 characters long ').isLength({ min: 2 })
-  req.checkBody('First Name', 'Invalid Name. must be alphabetical.').isAlpha()
-  req.checkBody('Last Name', 'Invalid Last Name. Must be alphabetical').isAlpha()
-  req.checkBody('Last Name', 'Invalid Last Name. Must be 2 characters long').isLength({ min:2 })
+  req.checkBody('FirstName', 'Invalid Name. Must be atleast 2 characters long ').isLength({ min: 2 })
+  req.checkBody('FirstName', 'Invalid Name. must be alphabetical.').isAlpha()
+  req.checkBody('LastName', 'Invalid Last Name. Must be alphabetical').isAlpha()
+  req.checkBody('LastName', 'Invalid Last Name. Must be 2 characters long').isLength({ min:2 })
   req.checkBody('address', 'Invalid Address, Please input your full address').isLength({ min: 10 })
   req.checkBody('card-number', 'Invalid Card. Must 16 digits long').isLength({ min: 15 })
   req.checkBody('card-number', 'Invalid Card. Must be numeric ').isNumeric()
@@ -56,15 +56,15 @@ router.post('/', isLoggedIn, function(req, res, next) {
           user: req.user,
           cart: cart,
           address: req.body.address,
-          name: req.body.name,
-      });
+          name: req.body.FirstName,
+        });
 
       order.save(function(err, result) {
         //console.log(err)
           req.flash('success', 'Thank you for your purchase(s)!');
           req.session.cart = null;
           res.redirect('/');
-          //console.log("order saved");
+          console.log("order saved");
         });
       }
 

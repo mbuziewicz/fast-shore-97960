@@ -12,6 +12,7 @@ var csrfProtection = csrf();
 router.use(csrfProtection);
 router.use(express.json());
 
+
 /* GET home page. */
 router.get('/shop', function(req, res, next) {
     Product.find(/**{type:'gear'},**/ function(err,docs){
@@ -68,7 +69,18 @@ router.get('/shop/clothes', function(req, res, next) {
 
 /* GET shoes page. */
 router.get('/shop/shoes', function(req, res, next) {
+  Product.find({type:'shoes'}, function(err,docs){
+    if (err){
+      console.log(err);
+    }
+    var productChunks = [];
+    var chunkSize = 3;
+    for (var i = 0; i < docs.length; i += chunkSize){
+      productChunks.push(docs.slice(i, i + chunkSize));
+    }
+    console.log("docs:" + docs);
   res.render('shop/shoes', { title: 'Shopping Cart' });
+});
 });
 
 /* GET jerseys page. */
