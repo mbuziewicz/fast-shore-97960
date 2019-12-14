@@ -57,7 +57,8 @@ router.post('/', isLoggedIn, function(req, res, next) {
           user: req.user,
           cart: cart,
           address: req.body.address,
-          name: req.body.firstName
+          firstname: req.body.firstName,
+          lastname: req.body.lastName
       });
 
       order.save(function(err, result) {

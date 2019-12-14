@@ -35,19 +35,40 @@ router.get('/', function(req, res, next) {
 
 /* GET gear page. */
 router.get('/shop/gear', function(req, res, next) {
-  Product.find({type:'gear'}, function(err,docs){
-    if (err){
-      console.log(err);
+  
+  if (!req.query.search) {
+    Product.find({ type:'gear' }, function(err,docs){
+      //Product.find({type:'gear', name: req.query.search}, function(err,docs){
+          if (err){
+          console.log(err);
+        }
+        var productChunks = [];
+        var chunkSize = 3;
+        for (var i = 0; i < docs.length; i += chunkSize){
+          productChunks.push(docs.slice(i, i + chunkSize));
+        }
+        console.log("docs:" + docs);
+        res.render('shop/gear', { title: 'Shopping Cart', products: productChunks });
+      });
+  }
+  else{
+    Product.find({ type:'gear', title: {$regex: req.query.search, $options:'i' } }, function(err,docs){
+      //Product.find({type:'gear', name: req.query.search}, function(err,docs){
+          if (err){
+          console.log(err);
+        }
+        var productChunks = [];
+        var chunkSize = 3;
+        for (var i = 0; i < docs.length; i += chunkSize){
+          productChunks.push(docs.slice(i, i + chunkSize));
+        }
+        console.log("docs:" + docs);
+        res.render('shop/gear', { title: 'Shopping Cart', products: productChunks });
+      });
     }
-    var productChunks = [];
-    var chunkSize = 3;
-    for (var i = 0; i < docs.length; i += chunkSize){
-      productChunks.push(docs.slice(i, i + chunkSize));
-    }
-    console.log("docs:" + docs);
-    res.render('shop/gear', { title: 'Shopping Cart', products: productChunks });
-  });
+  
 });
+
 
 
 /* GET clothes page. */
