@@ -5,7 +5,6 @@ var passport = require('passport');
 
 var Order = require ('../models/order');
 var Cart = require ('../models/cart');
-var User = require ('../models/user');
 
 var csrfProtection = csrf();
 router.use(csrfProtection);
@@ -23,8 +22,6 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
         res.render('user/profile', { orders: orders });
     });
 });
-
-
 router.get('/profile123', isLoggedIn, function (req, res, next) {
     Order.find({}, function(err, orders) {
         if(err) {
@@ -35,8 +32,6 @@ router.get('/profile123', isLoggedIn, function (req, res, next) {
             cart = new Cart(order.cart);
             order.items = cart.generateArray();
         });
-
-        //res.render('user/profile123', { orders: orders });
         res.render('user/profile123', { orders: orders });
     });
 });
