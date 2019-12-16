@@ -7,8 +7,13 @@
         {{# each orders }}
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <ul class="list-group">
+                    <ul class="list-group">  
+                             First Name: {{ this.firstname }}
+                                 Last Name: {{ this.item.lastname }}
+                                 Address: {{ this.address }}
+                                             
                         {{# each this.items }}
+                         
                             <li class="list-group-item">
                                 <span class="badge">${{ this.price }}</span>
                                 {{ this.item.title }} | {{ this.qty }} Units
