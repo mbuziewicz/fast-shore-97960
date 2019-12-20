@@ -35,24 +35,23 @@
 
              <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user" aria-hidden="true"></i> User Management
+                        <i class="fa fa-user" aria-hidden="true"></i> User Mgmt
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         {{# if login}}
                             <a class="dropdown-item" href="/user/profile">User Account</a>
+                            </hr>
                             <a class="dropdown-item" href="/user/logout">Logout</a>
                         {{ else }}
                             <a class="dropdown-item" href="/user/signup">Sign up</a>
+                            </hr>
                             <a class="dropdown-item" href="/user/signin">Sign in</a>
                         {{/if}}
 
                     </div>
                 </li>
 
-              <li><a href="/shopping-cart/"><i class="fa fa-shopping-cart" aria-hidden="true"> Shopping cart</i><span class="badge">{{session.cart.totalQty}}</span></li>
-                
-              
-                </a>            
+              <li><a href="/shopping-cart/"><i class="fa fa-shopping-cart" aria-hidden="true"> Shopping cart</i><span class="badge">{{session.cart.totalQty}}</span></a></li>
                 </ul>
           </div>
         </div>
