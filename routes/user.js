@@ -25,7 +25,7 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
 });
 
 
-router.get('/profile123', isLoggedIn, function (req, res, next) {
+router.get('/report1', function (req, res, next) {
     Order.find({}, function(err, orders) {
         if(err) {
             return res.write('Error!');
@@ -36,8 +36,8 @@ router.get('/profile123', isLoggedIn, function (req, res, next) {
             order.items = cart.generateArray();
         });
 
-        //res.render('user/profile123', { orders: orders });
-        res.render('user/profile123', { orders: orders });
+        //res.render('user/report1', { orders: orders });
+        res.render('user/report1', { orders: orders });
     });
 });
 
@@ -106,6 +106,13 @@ router.post('/admin-signin', passport.authenticate('admin.signin', {
 });
 
 module.exports = router;
+
+function isAdminLoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
 
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()) {

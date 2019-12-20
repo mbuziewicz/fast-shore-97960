@@ -1,4 +1,15 @@
-<div class="container">
+<!DOCTYPE html>
+
+<html>
+<head>
+  <link rel='stylesheet' href='/stylesheets/products.css'/>
+  <style>
+  </style>
+</head>
+
+<body>
+{{>navbar}}
+<div class="top container">
     <br />
     <form action="/update/post_change" method="POST">
         <input type="hidden" name="_id" value="{{product._id}}"/>
