@@ -87,7 +87,6 @@ hr {
 .sec-folio img {
     max-width: 100%;
 }
-
 /*Main*/
 .sec-main {
     position: relative;
@@ -153,4 +152,12 @@ footer {
     text-align: center;
     margin-left: 10%;
 	margin-right: 10%;
+}
+
+.search {
+    margin: 10px;
+}
+
+.searchbutton {
+    margin:10px;
 }

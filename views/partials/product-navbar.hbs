@@ -23,8 +23,22 @@
             <ul class="nav navbar-nav navbar-right js-nav">
               
               
-            
 
+              <li class="search">
+
+                <form action="/shop/gear" method="GET" class ="form-inline">
+                <div class="form-group">
+             
+              <input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+              </div>
+              
+              </form>
+              </li> 
+
+
+              
               <li><a href="/shop/gear">Gear</a></li>
   
               <li><a href="/shop/clothes">Clothes</a></li>
@@ -49,7 +63,10 @@
                     </div>
                 </li>
 
-              <li><a href="/shopping-cart/"><i class="fa fa-shopping-cart" aria-hidden="true"> Shopping cart</i><span class="badge">{{session.cart.totalQty}}</span></a></li>
+              <li><a href="/shopping-cart/"><i class="fa fa-shopping-cart" aria-hidden="true"> Shopping cart</i><span class="badge">{{session.cart.totalQty}}</span></li>
+                
+              
+                </a>            
                 </ul>
           </div>
         </div>
