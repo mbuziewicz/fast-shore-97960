@@ -140,52 +140,105 @@ router.get('/shop/dgear', function(req, res, next) {
 
 /* GET clothes page. */
 router.get('/shop/clothes', function(req, res, next) {
-  Product.find({type:'clothes'}, function(err,docs){
-    if (err){
-      console.log(err);
-    }
-    var productChunks = [];
-    var chunkSize = 3;
-    for (var i = 0; i < docs.length; i += chunkSize){
-      productChunks.push(docs.slice(i, i + chunkSize));
-    }
-    console.log("docs:" + docs);
-    res.render('shop/clothes', { title: 'Shopping Cart', products: productChunks });
+
+  if(!req.query.search){
+    Product.find({ type: 'clothes' }, function(err,docs){
+      if(err){
+        console.log(error)
+      }
+      var productChunks = [];
+      var chunkSize = 3;
+      for (var i = 0; i < docs.length; i += chunkSize){
+        productChunks.push(docs.slice(i, i + chunkSize));
+      }
+      console.log("docs:" + docs);
+      res.render('shop/clothes', { title: 'Shopping Cart', products: productChunks });
+    });
+  }
+  else{
+    Product.find({type:'clothes',title: {$regex: req.query.search, $options: 'i'}}, function(err,docs){
+      if (err){
+        console.log(err);
+      }
+      var productChunks = [];
+      var chunkSize =3;
+      for(var i= 0; i < docs.length; i += chunkSize){
+        productChunks.push(docs.slice(i, i + chunkSize));
+      }
+      console.log("docs:" + docs);
+      res.render('shop/clothes', {title: 'Shopping Cart', products: productChunks});
+    });
+  }
+  
   });
-});
+  
 
 /* GET shoes page. */
 router.get('/shop/shoes', function(req, res, next) {
-  Product.find({type:'shoes'}, function(err,docs){
-    if (err){
-      console.log(err);
-    }
-    var productChunks = [];
-    var chunkSize = 3;
-    for (var i = 0; i < docs.length; i += chunkSize){
-      productChunks.push(docs.slice(i, i + chunkSize));
-    }
-    //console.log("docs:" + docs);
-    res.render('shop/shoes', { title: 'Shopping Cart', products: productChunks });
-  });
-});
 
+  if(!req.query.search){
+    Product.find({ type: 'shoes' }, function(err,docs){
+      if(err){
+        console.log(error)
+      }
+      var productChunks = [];
+      var chunkSize = 3;
+      for (var i = 0; i < docs.length; i += chunkSize){
+        productChunks.push(docs.slice(i, i + chunkSize));
+      }
+      console.log("docs:" + docs);
+      res.render('shop/shoes', { title: 'Shopping Cart', products: productChunks });
+    });
+  }
+  else{
+    Product.find({type:'shoes',title: {$regex: req.query.search, $options: 'i'}}, function(err,docs){
+      if (err){
+        console.log(err);
+      }
+      var productChunks = [];
+      var chunkSize =3;
+      for(var i= 0; i < docs.length; i += chunkSize){
+        productChunks.push(docs.slice(i, i + chunkSize));
+      }
+      console.log("docs:" + docs);
+      res.render('shop/shoes', {title: 'Shopping Cart', products: productChunks});
+    });
+  }
+  
+  });
 /* GET jerseys page. */
 router.get('/shop/jerseys', function(req, res, next) {
-  Product.find({type:'jerseys'}, function(err,docs){
-    if (err){
-      console.log(err);
-    }
-    var productChunks = [];
-    var chunkSize = 3;
-    for (var i = 0; i < docs.length; i += chunkSize){
-      productChunks.push(docs.slice(i, i + chunkSize));
-    }
-    //console.log("docs:" + docs);
-    res.render('shop/jerseys', { title: 'Shopping Cart', products: productChunks });
-  });
-});
 
+  if(!req.query.search){
+    Product.find({ type: 'jerseys' }, function(err,docs){
+      if(err){
+        console.log(error)
+      }
+      var productChunks = [];
+      var chunkSize = 3;
+      for (var i = 0; i < docs.length; i += chunkSize){
+        productChunks.push(docs.slice(i, i + chunkSize));
+      }
+      console.log("docs:" + docs);
+      res.render('shop/jerseys', { title: 'Shopping Cart', products: productChunks });
+    });
+  }
+  else{
+    Product.find({type:'jerseys',title: {$regex: req.query.search, $options: 'i'}}, function(err,docs){
+      if (err){
+        console.log(err);
+      }
+      var productChunks = [];
+      var chunkSize =3;
+      for(var i= 0; i < docs.length; i += chunkSize){
+        productChunks.push(docs.slice(i, i + chunkSize));
+      }
+      console.log("docs:" + docs);
+      res.render('shop/jerseys', {title: 'Shopping Cart', products: productChunks});
+    });
+  }
+  
+  });
 /*
 router.get('/add-to-cart', function(req, res, next){
   var productId = req.params.id;
