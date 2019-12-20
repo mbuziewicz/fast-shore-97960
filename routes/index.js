@@ -7,7 +7,7 @@ var flash = require('express-flash')
 var Product = require('../models/product');
 var User = require('../models/user');
 
-
+const req = require('request')
 var csrfProtection = csrf();
 router.use(csrfProtection);
 router.use(express.json());
@@ -42,6 +42,55 @@ var query = {type:'gear'};
 
 /* GET gear page. */
 router.get('/shop/gear', function(req, res, next) {
+
+if(!req.query.search){
+  Product.find({ type: 'gear' }, function(err,docs){
+    if(err){
+      console.log(error)
+    }
+    var productChunks = [];
+    var chunkSize = 3;
+    for (var i = 0; i < docs.length; i += chunkSize){
+      productChunks.push(docs.slice(i, i + chunkSize));
+    }
+    console.log("docs:" + docs);
+    res.render('shop/gear', { title: 'Shopping Cart', products: productChunks });
+  });
+}
+else{
+  Product.find({type:'gear',title: {$regex: req.query.search, $options: 'i'}}, function(err,docs){
+    if (err){
+      console.log(err);
+    }
+    var productChunks = [];
+    var chunkSize =3;
+    for(var i= 0; i < docs.length; i += chunkSize){
+      productChunks.push(docs.slice(i, i + chunkSize));
+    }
+    console.log("docs:" + docs);
+    res.render('shop/gear', {title: 'Shopping Cart', products: productChunks});
+  });
+}
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.get('/shop/33gear', function(req, res, next) {
   Product.find(query, function(err,docs){
     if (err){
       console.log(err);
