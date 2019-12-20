@@ -158,8 +158,20 @@ footer {
 
 .search {
     margin: 10px;
+    
 }
 
+.input-sm{
+    height: 22px;
+    padding:0px;
+    font-size: 9px;
+    line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */
+    border-radius: 3px;
+}
 .searchbutton {
     margin:10px;
+}
+
+.searchbox{
+    width: 5px;
 }
