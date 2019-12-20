@@ -7,7 +7,7 @@ var flash = require('express-flash')
 var Product = require('../models/product');
 var User = require('../models/user');
 
-const req = require('request')
+//const req = require('request')
 var csrfProtection = csrf();
 router.use(csrfProtection);
 router.use(express.json());

@@ -9,6 +9,7 @@ a, .sec-contact .btn {
  body {
 	 font-family: 'Open sans', sans-serif;
 	 font-weight: 300;
+	 margin-top: 100px;
 }
 .col-md-4{
     float: left;
