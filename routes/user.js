@@ -25,7 +25,7 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
 });
 
 
-router.get('/report1', function (req, res, next) {
+router.get('/report1', isAdminLoggedIn, function (req, res, next) {
     Order.find({}, function(err, orders) {
         if(err) {
             return res.write('Error!');
