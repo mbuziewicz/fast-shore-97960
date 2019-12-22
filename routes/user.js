@@ -109,9 +109,9 @@ module.exports = router;
 
 function isAdminLoggedIn(req, res, next) {
     if(req.isAuthenticated()) {
-        return next();
+        res.redirect('/user/report1');
     }
-    res.redirect('/');
+    res.redirect('/user/admin-signin');
 }
 
 function isLoggedIn(req, res, next) {
