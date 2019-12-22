@@ -83,9 +83,13 @@ router.post('/signin', passport.authenticate('local.signin', {
     failureRedirect: '/user/signin',
     failureFlash: true
 }), function (req, res, next) {
-
+    if(req.session.oldUrl) {
+        var oldUrl = req.session.oldUrl;
+        req.session.oldUrl = null;
         res.redirect('/checkout');
-   
+    } else {
+        res.redirect('/user/profile');
+    }
 });
 
 router.post('/admin-signin', passport.authenticate('admin.signin', {
@@ -114,7 +118,7 @@ function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/');
+    res.redirect('/checkout');
 }
 
 function notLoggedIn(req, res, next) {
