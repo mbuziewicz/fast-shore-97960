@@ -26,6 +26,9 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
 
 
 router.get('/report1', isAdminLoggedIn, function (req, res, next) {
+    req.logout();
+
+    console.log("report1")
     Order.find({}, function(err, orders) {
         if(err) {
             return res.write('Error!');
@@ -74,10 +77,6 @@ router.get('/signin', function (req, res, next) {
     res.render('user/signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
 
-router.get('/admin-signin', function (req, res, next) {
-    var messages = req.flash('error');
-    res.render('user/admin-signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
-});
 
 router.post('/signin', passport.authenticate('local.signin', {
     failureRedirect: '/user/signin',
@@ -92,6 +91,11 @@ router.post('/signin', passport.authenticate('local.signin', {
     }
 });
 
+router.get('/admin-signin', function (req, res, next) {
+    var messages = req.flash('error');
+    res.render('user/admin-signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
+});
+
 router.post('/admin-signin', passport.authenticate('admin.signin', {
     failureRedirect: '/user/admin-signin',
     failureFlash: true
@@ -101,15 +105,18 @@ router.post('/admin-signin', passport.authenticate('admin.signin', {
         req.session.oldUrl = null;
         res.redirect(oldUrl);
     } else {
-        res.redirect('/user/update');
+        res.redirect('/user/report1');
     }
 });
 
 module.exports = router;
 
 function isAdminLoggedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-        res.redirect('/user/report1');
+    console.log("isadmin");
+    console.log(req.isAuthenticated());
+    console.log(req.session.isAdminRole)
+    if(req.isAuthenticated() && req.session.isAdminRole) {
+        return next();
     }
     res.redirect('/user/admin-signin');
 }
@@ -118,7 +125,7 @@ function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/checkout');
+    res.redirect('/');
 }
 
 function notLoggedIn(req, res, next) {

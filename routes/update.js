@@ -16,7 +16,7 @@ var csrfProtection = csrf();
 router.use(csrfProtection);
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', isAdminLoggedIn, (req, res, next) => {
   product.find((err, products) => {
     if (err) throw err;
     res.render('update/update_index', { csrfToken: req.csrfToken(), products: products });
@@ -70,4 +70,27 @@ router.post('/post_change', (req, res, next) => {
 });
 
 
+router.get('/admin-signin', function (req, res, next) {
+  var messages = req.flash('error');
+  res.render('update/updateadmin-signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
+});
+
+router.post('/admin-signin', passport.authenticate('updateadmin.signin', {
+  failureRedirect: 'update/updateadmin-signin',
+  failureFlash: true
+}), function (req, res, next) {
+      res.redirect('/update');
+});
+
 module.exports = router;
+
+function isAdminLoggedIn(req, res, next) {
+  console.log("isadmin");
+  console.log(req.isAuthenticated());
+  console.log(req.session.isAdminRole)
+  if(req.isAuthenticated() && req.session.isAdminRole) {
+      return next();
+      //return res.redirect('/update');
+  }
+  res.redirect('update/admin-signin');
+}
