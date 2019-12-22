@@ -20,6 +20,12 @@ router.get('/', isLoggedIn, function (req, res, next) {
   return res.render('shop/checkout', {total: cart.totalPrice, errMsg: errMsg, noError: !errMsg});
 });
 
+router.post('/clear-cart', function(req, res, next) {
+  req.session.cart = null;
+  res.redirect('back');
+});
+
+
 
 router.post('/', isLoggedIn, function(req, res, next) {
   if(!req.session.cart) {
