@@ -262,7 +262,8 @@ router.get('/add-to-cart/:id', function (req, res) {
       cart.add(product, product.id);
       req.session.cart = cart;
       console.log(req.session.cart);
-      res.redirect('/');
+      //res.redirect('/');
+      res.redirect('back');
 
   })
 });
