@@ -15,7 +15,7 @@ router.use(express.json());
 var csrfProtection = csrf();
 router.use(csrfProtection);
 
-/* GET home page. */
+/* GET update page. */
 router.get('/', isAdminLoggedIn, (req, res, next) => {
   req.logout();
 
@@ -72,13 +72,13 @@ router.post('/post_change', (req, res, next) => {
 });
 
 
-router.get('/admin-signin', function (req, res, next) {
+router.get('/updateadmin-signin', function (req, res, next) {
   var messages = req.flash('error');
   res.render('update/updateadmin-signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
 
-router.post('/admin-signin', passport.authenticate('updateadmin.signin', {
-  failureRedirect: 'update/updateadmin-signin',
+router.post('/updateadmin-signin', passport.authenticate('updateadmin.signin', {
+  failureRedirect: '/update/updateadmin-signin',
   failureFlash: true
 }), function (req, res, next) {
       res.redirect('/update');
@@ -94,5 +94,5 @@ function isAdminLoggedIn(req, res, next) {
       return next();
       //return res.redirect('/update');
   }
-  res.redirect('update/admin-signin');
+  res.redirect('/update/updateadmin-signin');
 }

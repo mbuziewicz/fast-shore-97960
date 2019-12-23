@@ -46,6 +46,7 @@ router.get('/report1', isAdminLoggedIn, function (req, res, next) {
 
 
 router.get('/logout', isLoggedIn, function (req, res, next) {
+    req.session.isAdminRole = null;
     req.logout();
     res.redirect('/');
 });

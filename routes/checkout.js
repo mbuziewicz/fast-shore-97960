@@ -71,9 +71,10 @@ router.post('/', isLoggedIn, function(req, res, next) {
         //console.log(err)
           req.flash('success', 'Thank you for your purchase(s)!');
           req.session.cart = null;
+          req.session.isAdminRole = null;
+          req.logout();
           res.redirect('user/profile');
           console.log("order saved");
-          req.logout();
         });
       }
 
