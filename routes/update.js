@@ -17,6 +17,8 @@ router.use(csrfProtection);
 
 /* GET home page. */
 router.get('/', isAdminLoggedIn, (req, res, next) => {
+  req.logout();
+
   product.find((err, products) => {
     if (err) throw err;
     res.render('update/update_index', { csrfToken: req.csrfToken(), products: products });
