@@ -22,6 +22,9 @@ body {
     margin-top: 100px;
 
 }
+header {
+    height: 1em;
+}
 .navbar a, .sec-about p {
     text-align: center;
 }
