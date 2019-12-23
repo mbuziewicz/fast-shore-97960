@@ -73,6 +73,7 @@ router.post('/', isLoggedIn, function(req, res, next) {
           req.session.cart = null;
           res.redirect('user/profile');
           console.log("order saved");
+          req.logout();
         });
       }
 
